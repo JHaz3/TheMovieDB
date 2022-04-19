@@ -22,10 +22,13 @@ class MovieDetailViewController: UIViewController, MovieDetailViewModelDelegate 
     }
 
     func updateViews() {
+        guard let object = viewModel.mediaObject else { return }
         self.navigationController?.navigationBar.tintColor = .white
-        titleLabel.text = viewModel.mediaObject?.title
-        releaseDateLabel.text = viewModel.mediaObject?.releaseDate
-        overviewLabel.text = viewModel.mediaObject?.overview
+        titleLabel.text = object.title
+        let date = formatStringToDate(dateString: object.releaseDate)
+        let formattedDate = formatDate(date: date)
+        releaseDateLabel.text = formattedDate
+        overviewLabel.text = object.overview
         
         if var posterURL = URL.tmdbImageBaseURL,
            let path = viewModel.mediaObject?.posterPath {
@@ -36,5 +39,18 @@ class MovieDetailViewController: UIViewController, MovieDetailViewModelDelegate 
     
     func setViewModel(using id: Int) {
         self.viewModel = MovieDetailViewModel(id: id, delegate: self)
+    }
+    
+    fileprivate func formatStringToDate(dateString: String) -> Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "y-MM-dd"
+        let dateObj = formatter.date(from: dateString)
+        return dateObj ?? Date()
+    }
+    
+    fileprivate func formatDate(date: Date) -> String {
+        let format = DateFormatter()
+        format.dateFormat = "MMM d, yyyy"
+        return format.string(from: date)
     }
 }

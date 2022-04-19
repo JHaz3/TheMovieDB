@@ -30,14 +30,14 @@ class MovieTableViewCell: UITableViewCell {
         overviewLabel.text = "\(object.rating)"
     }
     
-    func formatStringToDate(dateString: String) -> Date {
+    fileprivate func formatStringToDate(dateString: String) -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = "y-MM-dd"
         let dateObj = formatter.date(from: dateString)
-        return dateObj ?? Date() 
+        return dateObj ?? Date()
     }
     
-    func formatDate(date: Date) -> String {
+    fileprivate func formatDate(date: Date) -> String {
         let format = DateFormatter()
         format.dateFormat = "MMM d, yyyy"
         return format.string(from: date)
