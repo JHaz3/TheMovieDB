@@ -24,7 +24,22 @@ class MovieTableViewCell: UITableViewCell {
     func setConfiguration(with object: Movie) {
         self.id = object.id
         titleLabel.text = object.title
-        releaseDateLabel.text = object.releaseDate
+        let date = formatStringToDate(dateString: object.releaseDate)
+        let dateString = formatDate(date: date)
+        releaseDateLabel.text = dateString
         overviewLabel.text = "\(object.rating)"
+    }
+    
+    func formatStringToDate(dateString: String) -> Date {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "y-MM-dd"
+        let dateObj = formatter.date(from: dateString)
+        return dateObj ?? Date() 
+    }
+    
+    func formatDate(date: Date) -> String {
+        let format = DateFormatter()
+        format.dateFormat = "MMM d, yyyy"
+        return format.string(from: date)
     }
 }

@@ -42,9 +42,6 @@ class MovieListTableViewController: UITableViewController {
         vc.setViewModel(using: id)
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
-
 }// End of Class
 
 extension MovieListTableViewController: MediaSearchViewModelDelegate {
@@ -53,7 +50,7 @@ extension MovieListTableViewController: MediaSearchViewModelDelegate {
     }
     
     func encountered(_ error: Error) {
-        print("ERROR ERROR ERROR")
+        print("ERROR Loading Search Results")
     }
 }
 
@@ -75,7 +72,7 @@ extension MovieListTableViewController: UISearchBarDelegate {
                     self?.mediaSearchBar.resignFirstResponder()
                 }
             case .failure(let error):
-                print("There was an error!", error.errorDescription!)
+                print("Their was an error!", error.errorDescription!)
             }
         }
     }
